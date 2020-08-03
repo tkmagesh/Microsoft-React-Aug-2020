@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React Intro</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <script type="text/babel">
+        
+        var counter = 0;
+
+        function onBtnRenderClick(){
+            ++counter;
+            const appEle = (
+                <div>
+                    <h1>React.js</h1>
+                    <hr/>
+                    <section>
+                        <h3>Counter</h3>
+                        <span>{counter}</span>
+                    </section>
+                    <section>
+                        <h3>Introduction</h3>
+                        <p>Ex deserunt cillum dolore amet labore. Anim voluptate esse ex irure nostrud excepteur qui. Sint officia quis pariatur anim dolor aliqua magna nostrud velit. Cupidatat dolore cupidatat aute voluptate culpa sint adipisicing sint eiusmod pariatur occaecat fugiat.</p>
+                        <p>Tempor laborum mollit labore adipisicing aliqua minim dolor sint laboris ipsum non. Irure reprehenderit voluptate sint nisi labore laboris commodo minim magna cupidatat. Nulla et irure exercitation elit. Laborum ad proident cillum laborum incididunt enim eiusmod sint ea irure officia id. Nisi voluptate occaecat incididunt ut pariatur in qui est amet ad cillum.</p>
+                        <p>Aliquip do enim amet qui excepteur labore non labore mollit pariatur fugiat laborum do. Magna sunt est Lorem eiusmod commodo nostrud Lorem consectetur proident Lorem pariatur consequat. Velit incididunt ipsum sunt duis consectetur consectetur ex. Magna sint irure dolor mollit aliquip. Mollit et ad esse sunt velit aliqua labore ex incididunt in pariatur do non laborum.</p>
+                    </section>
+                    <section>
+                        <h3>Advantages</h3>
+                        <ol>
+                            <li>Declarative</li>
+                            <li>Efficient</li>
+                        </ol>
+                    </section>
+                    <div>Counter value is {counter} </div>
+                </div>
+            )
+            ReactDOM.render(appEle, document.getElementById('root'));
+        }
+
+        function onDocumentLoad(){
+            var btnRender = document.getElementById('btnRender');
+            btnRender.addEventListener('click', onBtnRenderClick);
+        }
+
+        window.addEventListener('load', onDocumentLoad);
+    
+    </script>
+</head>
+<body>
+    <input type="button" value="Render" id="btnRender">
+    <div id="root"></div>
+</body>
+</html>

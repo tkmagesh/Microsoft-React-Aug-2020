@@ -38,3 +38,14 @@ React
         Mail data
         Presentation
         User Interaction Behavior
+
+HTML
+    - Independent Open tag is allowed
+    - 'for' attribute is allowed
+    - 'class' attribute is allowed
+
+JSX 
+    - Every open tag must have a close tag
+    - use 'htmlFor' as the equivalent for 'for'
+    - use 'className' as the equivalent for 'class'
+
