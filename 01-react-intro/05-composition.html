@@ -69,16 +69,15 @@
                                 labelText="DA :" 
                                 onValueChange={ value => this.setState({da : value }) }
                             />
-                            <div className="field">
-                                <label htmlFor="">Tax :</label>
-                                <input 
-                                    type="range" 
-                                    min="0" 
-                                    max="30" 
-                                    value={this.state.tax} 
-                                    onChange={ evt => this.setState({ tax : evt.target.value })} 
-                                />
-                            </div>
+                            <SalaryCalculatorInput
+                                type = "range"
+                                labelText = "Tax :"
+                                min="0"
+                                max="30"
+                                defaultValue="0"
+                                onValueChange={ value => this.setState({tax : value })}
+                            />
+                            
                             <div className="field">
                                 <input type="button" value="Calculate" 
                                     onClick={this.onBtnCalculateClick} />
@@ -92,12 +91,13 @@
 
         class SalaryCalculatorInput extends React.Component{
             render() {
-                const { labelText, onValueChange } = this.props;
+                const { labelText, onValueChange, type = "number", ...attrs } = this.props;
                 return(
                     <div className="field">
                         <label htmlFor="">{labelText}</label>
                         <input 
-                            type="number" 
+                            type={type}
+                            {...attrs}
                             onChange={ evt => onValueChange(evt.target.valueAsNumber) }/>
                     </div>
                 )
