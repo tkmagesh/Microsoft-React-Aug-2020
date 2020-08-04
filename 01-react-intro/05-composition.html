@@ -82,7 +82,7 @@
                                 <input type="button" value="Calculate" 
                                     onClick={this.onBtnCalculateClick} />
                             </div>
-                            <SalaryCalculatorResult data={this.state} />
+                            <SalaryCalculatorResult {...this.state} />
                         </section>
                     </React.Fragment>
                 )
@@ -106,8 +106,7 @@
 
         class SalaryCalculatorResult extends React.Component{
             render(){
-                const { data } = this.props,
-                    { basic, hra, da, tax, salary } = data,
+                const { basic, hra, da, tax, salary } = this.props,
                     salaryStyle = salary >= 10000 ? 'goodSalary' : 'poorSalary',
                     salaryEle = (<td className={salaryStyle}>{salary}</td>);
                 return (
