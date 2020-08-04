@@ -48,7 +48,6 @@
                     gross = net * ((100-tax)/100);
                 this.setState({salary : gross});
             }
-
             render(){
                 const { basic, hra, da, tax, salary } = this.state;
 
@@ -90,7 +89,12 @@
         }
 
         class SalaryCalculatorInput extends React.Component{
+            shouldComponentUpdate(nextProps, nextState) {
+                const result = this.props.labelText !== nextProps.labelText || this.state !== nextState;
+                return result;
+            }
             render() {
+                console.log('SalaryCalculatorInput rendering for ', this.props.labelText)
                 const { labelText, onValueChange, type = "number", ...attrs } = this.props;
                 return(
                     <div className="field">

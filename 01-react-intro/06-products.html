@@ -9,6 +9,25 @@
     <script src="react-dom.development.js"></script>
     <script src="babel.min.js"></script>
     <script type="text/babel">
+        class Timer extends React.Component{
+            state = { currentTime : new Date() }
+            timerId = null;
+
+            componentDidMount () {
+                this.timerId = setInterval(() => {
+                    this.setState({ currentTime : new Date() });
+                }, 1000);
+            }
+            componentWillUnmount () {
+                if (this.timerId)
+                    clearInterval(this.timerId);
+            }
+            render() {
+                return(
+                    <div>{this.state.currentTime.toTimeString()}</div>
+                )
+            }
+        }
         class Products extends React.Component{
             state = { 
                 newProductName : '',
@@ -19,12 +38,14 @@
                 const { newProductName, productNames } = this.state;
                 this.setState({ productNames : [...productNames, newProductName]});
             }
+
             render(){
                const { productNames, newProductName } = this.state;
                const productItems = productNames.map((productName, index) => (<li key={index}>{productName}</li>));
                 return(
                     <React.Fragment>
                         <h1>Products</h1>
+                        <Timer/>
                         <hr/>
                         <label>Product Name :</label>
                         <input type="text" onChange={ evt => this.setState({newProductName : evt.target.value})} />
