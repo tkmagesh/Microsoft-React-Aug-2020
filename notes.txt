@@ -49,3 +49,36 @@ JSX
     - use 'htmlFor' as the equivalent for 'for'
     - use 'className' as the equivalent for 'class'
 
+component lifecycle events
+
+Category
+    Mounting
+    Updating
+    Unmounting
+
+Mounting Category
+    componentWillmount
+    componentDidMount
+
+Updating Category
+    shouldComponentUpdate
+    componentWillupdate
+    render
+
+Unmounting Category
+    componentWillunmount
+
+
+class MyComponent extends React.Component{
+    render(){
+
+    }
+}
+
+Hooks
+    - functions that allow functional components have all the characteristics of a 'class' component
+    - the hook function names MUST start with 'use'
+        useState (state management for primitive types (number, string, boolean))
+        useEffect
+        useMemo
+        useReducer (state management for non primitive types (object, array))

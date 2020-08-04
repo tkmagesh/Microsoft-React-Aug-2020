@@ -88,7 +88,8 @@
             }
         }
 
-        class SalaryCalculatorInput extends React.Component{
+        /* class SalaryCalculatorInput extends React.Component{
+
             shouldComponentUpdate(nextProps, nextState) {
                 const result = this.props.labelText !== nextProps.labelText || this.state !== nextState;
                 return result;
@@ -106,9 +107,29 @@
                     </div>
                 )
             }
+        } */
+
+        /* SalaryCalculatorInput as a functional component */
+        const SalaryCalculatorInput = ({ labelText, onValueChange, type = "number", ...attrs }) => {
+            React.useEffect(() => {
+                console.log('component is mounted / updated');
+                return () => {
+                    console.log('component is unmounted');
+                }
+            },[labelText]);
+            console.log('SalaryCalculatorInput rendering for ', labelText)
+            return(
+                <div className="field">
+                    <label htmlFor="">{labelText}</label>
+                    <input 
+                        type={type}
+                        {...attrs}
+                        onChange={ evt => onValueChange(evt.target.valueAsNumber) }/>
+                </div>
+            )
         }
 
-        class SalaryCalculatorResult extends React.Component{
+        /* class SalaryCalculatorResult extends React.Component{
             render(){
                 const { basic, hra, da, tax, salary } = this.props,
                     salaryStyle = salary >= 10000 ? 'goodSalary' : 'poorSalary',
@@ -129,7 +150,30 @@
                     </div>
                 )
             }
-        }
+        } */
+
+        //SalaryCalculatorResult as a functional component
+
+        const SalaryCalculatorResult = (props) => {
+            const { basic, hra, da, tax, salary } = props,
+                salaryStyle = salary >= 10000 ? 'goodSalary' : 'poorSalary',
+                salaryEle = (<td className={salaryStyle}>{salary}</td>);
+            return (
+                <div className="field">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>{basic}</td>
+                                <td>{hra}</td>
+                                <td>{da}</td>
+                                <td>{tax}</td>
+                                { salary > 0 ? salaryEle : null }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            )
+        };
 
         ReactDOM.render(<SalaryCalculator/>, document.getElementById('root'));
     

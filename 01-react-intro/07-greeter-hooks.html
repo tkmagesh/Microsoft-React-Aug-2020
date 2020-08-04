@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Greeter</title>
+    <style>
+        .highlight{
+            color : blue;
+            font-size: 18pt;
+        }
+        .error{
+            border : 2px solid red;
+            background-color : lightpink;
+        }
+    </style>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <script type="text/babel">
+
+        /* const Greeter = (props) => {
+            const [message, setMessage] = React.useState('Dummy greet message');
+            const [userName, setUserName] = React.useState('');
+
+            const onTxtUserNameChange = (evt) => setUserName(evt.target.value);
+            const onBtnGreetClick = () => setMessage(`Hi ${userName}, ${props.msgTemplate}`);
+            
+            return(
+                <div>
+                    <h1>Greeter</h1>
+                    <label htmlFor="">User Name :</label>
+                    <input type="text" onChange={onTxtUserNameChange} />
+                    <input type="button" value="Greet" onClick={onBtnGreetClick}/>
+                    <div className="highlight">{message}</div>
+                </div>
+            )
+        } */
+
+        const Greeter = ({msgTemplate}) => {
+            const [message, setMessage] = React.useState('Dummy greet message');
+            const [isUserNameError, setIsUserNameError] = React.useState(false);
+
+            const [userName, setUserName] = React.useState('');
+            const onBtnGreetClick = () => {
+                if(userName === ''){
+                    setIsUserNameError(true);
+                    return;
+                }
+                setIsUserNameError(false);
+                setMessage(`Hi ${userName}, ${msgTemplate}`);
+                setUserName('');
+            };
+
+            return(
+                <div>
+                    <h1>Greeter</h1>
+                    <label htmlFor="">User Name :</label>
+                    <input 
+                        type="text"
+                        value={userName}
+                        className={ isUserNameError ? 'error' : ''}
+                        onChange={ evt => setUserName(evt.target.value)} 
+                    />
+                    <input type="button" value="Greet" onClick={onBtnGreetClick}/>
+                    <div className="highlight">{message}</div>
+                </div>
+            )
+        }
+
+        /* class Timer extends React.Component{
+            state = { currentTime : new Date() }
+            timerId = null;
+
+            componentDidMount () {
+                this.timerId = setInterval(() => {
+                    this.setState({ currentTime : new Date() });
+                }, 1000);
+            }
+            componentWillUnmount () {
+                if (this.timerId)
+                    clearInterval(this.timerId);
+            }
+            render() {
+                return(
+                    <div>{this.state.currentTime.toTimeString()}</div>
+                )
+            }
+        } */
+
+        const Timer = () => {
+            const [currentTime, setCurrentTime] = React.useState('');
+            React.useEffect(() => {
+                //this function will be executed when the component is mounted / updated
+                const timerId = setInterval(() => setCurrentTime(new Date().toTimeString()), 1000);
+                return () => {
+                    //this function will be executed when the component is unmounted
+                    clearInterval(timerId);
+                }
+            }, [] /*make the initialization function execute only when the component is mounted*/ );
+            return(
+                <div>{currentTime}</div>
+            )
+        }
+
+        ReactDOM.render(
+            <div>
+                <Timer/>
+                <Greeter msgTemplate="Have a good day!" />
+                <hr/>
+                <Greeter msgTemplate="Have a nice day!" />
+            </div>,
+            document.getElementById('root'));
+    </script>
+</head>
+<body>
+    <div id="root">
+
+    </div>
+</body>
+</html>
