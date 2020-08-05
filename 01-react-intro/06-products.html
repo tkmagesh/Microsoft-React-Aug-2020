@@ -47,6 +47,7 @@
                         <h1>Products</h1>
                         <Timer/>
                         <hr/>
+                        
                         <label>Product Name :</label>
                         <input type="text" onChange={ evt => this.setState({newProductName : evt.target.value})} />
                         <input type="button" value="Add New" onClick={ this.onBtnAddNewClick} />
@@ -57,7 +58,21 @@
                 )
             }
         }
-        ReactDOM.render(<Products/>, document.getElementById('root'))
+
+        const ProductsCount = ({data}) => (
+            <div>
+                <span> Count : </span> 
+                <span> {data.length} </span>
+            </div>
+        );
+
+        ReactDOM.render(
+            <div>
+                <ProductsCount data={[]}/>
+                <Products/>
+            </div>
+            , document.getElementById('root')
+        )
     
     </script>
 </head>
