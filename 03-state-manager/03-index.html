@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>State Manager</title>
+    <script src="state-manager.js"></script>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <script type="text/babel">
+        /* 
+            01. initial implementation
+            02. remove the dependency of the store in the component
+            03. remove the responsibility of creating action objects in the component
+                    by introducing the action creators    
+        */
+
+        function spinnerReducer(currentState = 0, action){
+            if (action.type === 'INCREMENT') return currentState + 1;
+            if (action.type === 'DECREMENT') return currentState - 1;
+            return currentState;
+        }
+
+        const appStore = StateManager.createStore(spinnerReducer);
+
+        const spinnerActionCreators = {
+            increment(){
+                const action = { type : 'INCREMENT'};
+                return action;
+            },
+            decrement(){
+                const action = { type : 'DECREMENT'};
+                return action;
+            }
+        }
+        
+        class Spinner extends React.Component{
+            onDecrementClick =() => {
+                const action = this.props.actionCreators.decrement();
+                this.props.dispatch(action);
+            }
+            onIncrementClick =() => {
+                const action = this.props.actionCreators.increment();
+                this.props.dispatch(action);
+            }
+            render(){
+                const value = this.props.value;
+                return(
+                    <React.Fragment>
+                        <h3>Spinner</h3>
+                        <hr/>
+                        <div>
+                            <input type="button" value="Decrement" onClick={this.onDecrementClick} />
+                            <span> [ {value} ] </span>
+                            <input type="button" value="Increment" onClick={this.onIncrementClick} />
+                        </div>
+                    </React.Fragment>
+                )
+            }
+        }
+
+        function renderApp(){
+            const value = appStore.getState();
+            ReactDOM.render(
+                <Spinner value={value} dispatch={appStore.dispatch} actionCreators={spinnerActionCreators} />
+                , document.getElementById('root')
+            )
+        }
+        renderApp();
+        appStore.subscribe(renderApp);
+    </script>
+</head>
+<body>
+    <h1>State Manager</h1>
+    <hr>
+    <div id="root">
+
+    </div>
+</body>
+</html>
