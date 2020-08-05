@@ -36,7 +36,9 @@
 
             onBtnAddNewClick =() => {
                 const { newProductName, productNames } = this.state;
-                this.setState({ productNames : [...productNames, newProductName]});
+                const newProductNamesList = [...productNames, newProductName];
+                this.setState({ productNames : newProductNamesList});
+                this.props.onListChange(newProductNamesList);
             }
 
             render(){
@@ -66,11 +68,19 @@
             </div>
         );
 
+        const MyApp = () => {
+            const [productNames, setProductNames] = React.useState([]);
+            const onProductNamesChange = (list) => setProductNames(list); 
+            return (
+                <div>
+                    <ProductsCount data={productNames}/>
+                    <Products onListChange={onProductNamesChange}/>
+                </div>
+            )
+        }
+
         ReactDOM.render(
-            <div>
-                <ProductsCount data={[]}/>
-                <Products/>
-            </div>
+            <MyApp/>
             , document.getElementById('root')
         )
     
