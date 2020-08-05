@@ -82,3 +82,60 @@ Hooks
         useEffect
         useMemo
         useReducer (state management for non primitive types (object, array))
+
+
+Application Setup
+
+JavaScript
+    JSX -> JS
+    ES6 -> ES5
+    bundle the JS files
+
+    Production Build
+        minify the JS 
+        uglify the JS
+        bundle the JS
+        version the JS
+
+CSS
+    SCSS -> CSS
+    bundle the CSS
+
+    Production Build
+        minify the CSS
+        bundle the CSS
+        version the CSS
+
+HTML
+    the refereces to JS and CSS to be updated
+    minify the HTML
+
+Webserver
+
+Grunt
+Gulp
+Webpack
+
+CLI - create-react-app
+
+nodejs (LTS)
+    npm (NuGet, pip, Gem, maven)
+    yarn
+        to install yarn
+            [sudo] npm install yarn -g
+
+npx
+
+node.js command prompt
+
+yarn --verion
+
+npx create-react-app first-app
+
+CommonJS
+AMD - Asynchronous Module Definition
+
+ES6 Modules
+    Everything defined in a JS file is considered private
+    explicity export of entities
+    explicity import entities to use 
