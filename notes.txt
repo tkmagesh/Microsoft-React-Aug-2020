@@ -139,3 +139,18 @@ ES6 Modules
     Everything defined in a JS file is considered private
     explicity export of entities
     explicity import entities to use 
+
+Localizing the state for that particular component
+
+State
+
+    UI State
+        Data supporting the UI responsibilities
+        The probability of this data needed in other components are very low
+        Suitable to be maintained in the respective component
+            using setState / useState
+
+    App State
+        Data supporting the core application logic
+        The probability of this data needed through out the application are high
+        NOT suitable to be maintained in the component 
