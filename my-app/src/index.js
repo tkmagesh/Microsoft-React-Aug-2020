@@ -5,10 +5,13 @@ import './index.css';
 
 import * as serviceWorker from './serviceWorker';
 import appStore from './store';
+
+/*
 import bugActionCreators from './bugTracker/actions';
 import BugTracker from './bugTracker';
 
 const bugActionDispatchers = bindActionCreators(bugActionCreators, appStore.dispatch);
+
 
 function renderApp() {
   const bugs = appStore.getState();
@@ -17,6 +20,20 @@ function renderApp() {
       <BugTracker bugs={bugs} {...bugActionDispatchers} />
     </React.StrictMode>,
     document.getElementById('root')
+  )
+} 
+*/
+
+import spinnerActionCreators from './spinner/actions';
+import Spinner from './spinner';
+
+const spinnerActionDispatchers = bindActionCreators(spinnerActionCreators, appStore.dispatch);
+
+function renderApp() {
+  const value = appStore.getState();
+  ReactDOM.render(
+    <Spinner value={value} {...spinnerActionDispatchers} />
+    , document.getElementById('root')
   )
 }
 renderApp();
