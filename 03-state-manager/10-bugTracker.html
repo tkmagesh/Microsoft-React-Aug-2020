@@ -42,9 +42,9 @@
         (done) 2. List the added bugs
         (done) 3. Toggle the 'closed' status of any bug
         (done) 4. Remove any bug
-        5. Remove closed bugs
-        6. Display stats ( # of closed bugs / total # of bugs )
-        7. Sort the bugs
+        (done) 5. Remove closed bugs
+        (done) 6. Display stats ( # of closed bugs / total # of bugs )
+        (assignment) 7. Sort the bugs
         8. Persist the bugs in the server
         9. Make the bugs accessible using unique urls
         10. Create a build for deployment
@@ -55,11 +55,13 @@
     <script src="state-manager.js"></script>
 
     <script type="text/babel">
-        const initialState = [
+        /* const initialState = [
             { id : 1, name : 'Server communication failure', isClosed: false, createdAt : new Date()},
             { id : 2, name : 'Data integrity checks failed', isClosed: true, createdAt : new Date()},
             { id : 3, name : 'Application not responding', isClosed: false, createdAt : new Date()}
-        ];
+        ]; */
+
+        const initialState = [];
 
         function bugsReducer(currentState = initialState, action){
             if (action.type === 'ADD_BUG'){
@@ -76,11 +78,15 @@
                 const newState = currentState.filter(bug => bug.id !== bugToRemove.id);
                 return newState;
             }
+            if (action.type === 'INIT_BUGS'){
+                return action.payload;
+            }
+            
 
             return currentState;
         }
 
-        let currentBugId = 3;
+        let currentBugId = 0;
         const bugActionCreators = {
             addNew(bugName){
                 const newBug = {
@@ -100,6 +106,12 @@
             remove(bugToRemove){
                 const action = { type : 'REMOVE_BUG', payload : bugToRemove };
                 return action;
+            },
+            //receiving the current list of bugs from the UI is poor design, a fix is needed
+            removeClosed(bugs){
+                const bugsToRetain = bugs.filter(bug => !bug.isClosed);
+                const action = { type : 'INIT_BUGS', payload: bugsToRetain };
+                return action;
             }
         }
         
@@ -111,7 +123,7 @@
 
             render(){
                 
-                const { bugs, addNew, toggle, remove } = this.props;
+                const { bugs, addNew, toggle, remove, removeClosed } = this.props;
                 const bugItems = bugs.map( bug => {
                     const bugStyle = 'bugname ' + (bug.isClosed ? 'closed' : '');
                     return (
@@ -124,12 +136,13 @@
                         </li>
                     );
                 });
+                const closedCount = bugs.reduce((result, bug) => bug.isClosed ? ++result : result, 0);
                 return(
                     <React.Fragment>
                         <h1>Bug Tracker</h1>
                         <hr/>
                         <section className="stats">
-                            <span className="closed">1</span>
+                            <span className="closed">{closedCount}</span>
                             <span> / </span>
                             <span>{bugs.length}</span>
                         </section>
@@ -159,7 +172,11 @@
                             <ol>
                                 {bugItems}
                             </ol>
-                            <input type="button" value="Remove Closed" />
+                            <input 
+                                type="button" 
+                                value="Remove Closed" 
+                                onClick={ e => removeClosed(bugs)}  
+                            />
                         </section>
                     </React.Fragment>
                 )
