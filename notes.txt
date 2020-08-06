@@ -156,3 +156,19 @@ State
         NOT suitable to be maintained in the component 
 
 Redux
+
+react-redux
+    connect
+    Provider
+
+container / smart components (they receive the storeState & dispatch)
+presentation / dumb components (they receive the data & action dispatchers from the container components)
+
+
+Redux middleware
+    
+
+Homework
+    Read about promises
+    Display the even id bugs if spinner value is even / odd id bugs if the spinner value is odd
+    
