@@ -40,8 +40,8 @@
     <script type="text/usecases">
         (done) 1. Add new bugs
         (done) 2. List the added bugs
-        3. Toggle the 'closed' status of any bug
-        4. Remove any bug
+        (done) 3. Toggle the 'closed' status of any bug
+        (done) 4. Remove any bug
         5. Remove closed bugs
         6. Display stats ( # of closed bugs / total # of bugs )
         7. Sort the bugs
@@ -71,6 +71,12 @@
                 const newState = currentState.map(bug => bug.id === bugToUpdate.id ? bugToUpdate : bug );
                 return newState;
             }
+            if (action.type === 'REMOVE_BUG'){
+                const bugToRemove = action.payload;
+                const newState = currentState.filter(bug => bug.id !== bugToRemove.id);
+                return newState;
+            }
+
             return currentState;
         }
 
@@ -90,6 +96,10 @@
                 const toggledBug = { ...bugToToggle, isClosed : !bugToToggle.isClosed };
                 const action = { type : 'UPDATE_BUG', payload : toggledBug };
                 return action;
+            },
+            remove(bugToRemove){
+                const action = { type : 'REMOVE_BUG', payload : bugToRemove };
+                return action;
             }
         }
         
@@ -101,7 +111,7 @@
 
             render(){
                 
-                const { bugs, addNew, toggle } = this.props;
+                const { bugs, addNew, toggle, remove } = this.props;
                 const bugItems = bugs.map( bug => {
                     const bugStyle = 'bugname ' + (bug.isClosed ? 'closed' : '');
                     return (
@@ -110,7 +120,7 @@
                                 {bug.name}
                             </span>
                             <div className="datetime">[{bug.createdAt.toString()}]</div>
-                            <input type="button" value="Remove" />
+                            <input type="button" value="Remove" onClick={ e => remove(bug) } />
                         </li>
                     );
                 });
