@@ -4,6 +4,7 @@ const BugItem = ({ bug, toggle, remove }) => {
     const bugStyle = 'bugname ' + (bug.isClosed ? 'closed' : '');
     return (
         <li>
+            <div>[ {bug.id} ]</div>
             <span className={bugStyle} onClick={_ => toggle(bug)}>
                 {bug.name}
             </span>
