@@ -7,7 +7,7 @@ import './index.css';
 
 const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed }) => (
     <Fragment>
-        <h1>Bug Tracker</h1>
+        <h3>Bug Tracker</h3>
         <hr />
         <BugStats bugs={bugs} />
         <BugSort />

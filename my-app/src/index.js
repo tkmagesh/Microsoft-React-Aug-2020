@@ -6,33 +6,27 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import appStore from './store';
 
-/*
 import bugActionCreators from './bugTracker/actions';
 import BugTracker from './bugTracker';
-
-const bugActionDispatchers = bindActionCreators(bugActionCreators, appStore.dispatch);
-
-
-function renderApp() {
-  const bugs = appStore.getState();
-  ReactDOM.render(
-    <React.StrictMode>
-      <BugTracker bugs={bugs} {...bugActionDispatchers} />
-    </React.StrictMode>,
-    document.getElementById('root')
-  )
-} 
-*/
-
 import spinnerActionCreators from './spinner/actions';
 import Spinner from './spinner';
 
 const spinnerActionDispatchers = bindActionCreators(spinnerActionCreators, appStore.dispatch);
+const bugActionDispatchers = bindActionCreators(bugActionCreators, appStore.dispatch);
+
 
 function renderApp() {
-  const value = appStore.getState();
+  const storeState = appStore.getState(),
+    value = storeState.spinnerState,
+    bugs = storeState.bugsState;
+
   ReactDOM.render(
-    <Spinner value={value} {...spinnerActionDispatchers} />
+    <div>
+      <h1>My App</h1>
+      <hr/>
+      <Spinner value={value} {...spinnerActionDispatchers} />
+      <BugTracker bugs={bugs} {...bugActionDispatchers} />
+    </div>
     , document.getElementById('root')
   )
 }
