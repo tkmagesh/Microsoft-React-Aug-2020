@@ -1,4 +1,9 @@
 import React, { useState, Fragment } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import spinnerActionCreators from './actions';
+
 import './index.css';
 
 const Spinner = ({ value, increment, decrement }) => {
@@ -19,4 +24,17 @@ const Spinner = ({ value, increment, decrement }) => {
     );
 };
 
-export default Spinner;
+function mapStateToProps(storeState){
+    const value = storeState.spinnerState;
+    return { value : value };
+}
+
+function mapDispatchToProps(dispatch){
+    const spinnerActionDispatchers = bindActionCreators(spinnerActionCreators, dispatch);
+    return spinnerActionDispatchers;
+}
+
+export default connect(
+    mapStateToProps, 
+    mapDispatchToProps
+)(Spinner);
