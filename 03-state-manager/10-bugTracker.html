@@ -66,6 +66,11 @@
                 const newState = [...currentState, action.payload];
                 return newState;
             }
+            if (action.type === 'UPDATE_BUG'){
+                const bugToUpdate = action.payload;
+                const newState = currentState.map(bug => bug.id === bugToUpdate.id ? bugToUpdate : bug );
+                return newState;
+            }
             return currentState;
         }
 
@@ -80,6 +85,11 @@
                 };
                 const action = { type : 'ADD_BUG', payload : newBug };
                 return action;
+            },
+            toggle(bugToToggle){
+                const toggledBug = { ...bugToToggle, isClosed : !bugToToggle.isClosed };
+                const action = { type : 'UPDATE_BUG', payload : toggledBug };
+                return action;
             }
         }
         
@@ -91,12 +101,14 @@
 
             render(){
                 
-                const { bugs, addNew } = this.props;
+                const { bugs, addNew, toggle } = this.props;
                 const bugItems = bugs.map( bug => {
                     const bugStyle = 'bugname ' + (bug.isClosed ? 'closed' : '');
                     return (
                         <li key={bug.id}>
-                            <span className={bugStyle}>{bug.name}</span>
+                            <span className={bugStyle} onClick={ _ => toggle(bug) }>
+                                {bug.name}
+                            </span>
                             <div className="datetime">[{bug.createdAt.toString()}]</div>
                             <input type="button" value="Remove" />
                         </li>
