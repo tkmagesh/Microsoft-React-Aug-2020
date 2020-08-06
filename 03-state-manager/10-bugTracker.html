@@ -38,8 +38,8 @@
         }
     </style>
     <script type="text/usecases">
-        1. Add new bugs
-        2. List the added bugs
+        (done) 1. Add new bugs
+        (done) 2. List the added bugs
         3. Toggle the 'closed' status of any bug
         4. Remove any bug
         5. Remove closed bugs
@@ -62,14 +62,36 @@
         ];
 
         function bugsReducer(currentState = initialState, action){
+            if (action.type === 'ADD_BUG'){
+                const newState = [...currentState, action.payload];
+                return newState;
+            }
             return currentState;
         }
 
-        const appStore = StateManager.createStore(bugsReducer);
+        let currentBugId = 3;
+        const bugActionCreators = {
+            addNew(bugName){
+                const newBug = {
+                    id : ++currentBugId,
+                    name : bugName,
+                    isClosed : false, 
+                    createdAt : new Date()
+                };
+                const action = { type : 'ADD_BUG', payload : newBug };
+                return action;
+            }
+        }
+        
 
         class BugTracker extends React.Component{
+            state = {
+                newBugName : ''
+            };
+
             render(){
-                const { bugs } = this.props;
+                
+                const { bugs, addNew } = this.props;
                 const bugItems = bugs.map( bug => {
                     const bugStyle = 'bugname ' + (bug.isClosed ? 'closed' : '');
                     return (
@@ -100,8 +122,16 @@
                         </section>
                         <section className="edit">
                             <label htmlFor="">Bug Name :</label>
-                            <input type="text" name="" id="" />
-                            <input type="button" value="Add New" />
+                            <input 
+                                type="text" 
+                                value={this.state.newBugName} 
+                                onChange={e => this.setState({newBugName: e.target.value})} 
+                            />
+                            <input 
+                                type="button" 
+                                value="Add New" 
+                                onClick={e => addNew(this.state.newBugName)}
+                            />
                         </section>
                         <section className="list">
                             <ol>
@@ -113,11 +143,15 @@
                 )
             }
         }
+
+        const appStore = StateManager.createStore(bugsReducer);
+
+        const bugActionDispatchers = StateManager.bindActionCreators(bugActionCreators, appStore.dispatch);
         
         function renderApp(){
             const bugs = appStore.getState();
             ReactDOM.render(
-                <BugTracker bugs={bugs}/>, 
+                <BugTracker bugs={bugs} {...bugActionDispatchers} />, 
                 document.getElementById('root')
             )
         }
