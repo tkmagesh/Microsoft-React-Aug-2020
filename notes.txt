@@ -154,3 +154,5 @@ State
         Data supporting the core application logic
         The probability of this data needed through out the application are high
         NOT suitable to be maintained in the component 
+
+Redux

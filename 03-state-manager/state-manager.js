@@ -28,13 +28,24 @@ let StateManager = (function(){
         if (typeof reducer !== 'function')
             throw new Error('Invalid argument(s)');
         _reducer = reducer;
-        
+
         //to initialize the current state with a VALID DEFAULT state
         _currentState = _reducer(undefined, _init_action);
         const store = { getState, subscribe, dispatch }
         return store;
     }
 
-    return { createStore };
+    function bindActionCreators(actionCreators, dispatch) {
+        const actionDispatchers = {};
+        for (let key in actionCreators) {
+            actionDispatchers[key] = function () {
+                const action = actionCreators[key].apply(undefined, arguments);
+                dispatch(action);
+            }
+        }
+        return actionDispatchers;
+    }
+
+    return { createStore, bindActionCreators };
 
 })();
