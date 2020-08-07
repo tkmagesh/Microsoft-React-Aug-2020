@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
@@ -44,9 +44,11 @@ const rootReducer = combineReducers({
     bugsState : bugsReducer
 });
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const appStore = createStore(
         rootReducer
-    , applyMiddleware(logger, thunk, promiseMiddleware));
+    , composeEnhancers(applyMiddleware(logger, thunk, promiseMiddleware)));
 
 export default appStore;
 

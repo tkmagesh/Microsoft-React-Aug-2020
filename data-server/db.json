@@ -15,7 +15,7 @@
     {
       "id": 3,
       "name": "User actions not recognized",
-      "isClosed": false,
+      "isClosed": true,
       "createdAt": "2020-08-07T07:01:20.236Z"
     },
     {
@@ -23,6 +23,12 @@
       "name": "Data integrity checks failed",
       "isClosed": false,
       "createdAt": "2020-08-07T07:07:30.902Z"
+    },
+    {
+      "id": 5,
+      "name": "Bugs are not removed",
+      "isClosed": false,
+      "createdAt": "2020-08-07T07:37:39.761Z"
     }
   ],
   "projects": [
