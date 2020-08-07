@@ -11,7 +11,7 @@ const BugList = ({ bugs, toggle, remove, removeClosed }) => {
             <input
                 type="button"
                 value="Remove Closed"
-                onClick={e => removeClosed(bugs)}
+                onClick={removeClosed}
             />
         </section>
     )
