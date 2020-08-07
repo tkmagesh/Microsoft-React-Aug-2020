@@ -187,3 +187,21 @@ json-server
 => 
     http://localhost:3000/products
     http://localhost:3000/customers
+
+axios for server communication 
+    //to get all the bugs
+    axios.get('http://localhost:3030/bugs')
+        .then(response => response.data)
+        .then(bugs => console.table(bugs))
+
+    //to add a new bug    
+    const newBugData = {
+        id : 0,
+        name : 'Application not responding',
+        isClosed : false,
+        createdAt : new Date()
+    }
+
+    axios.post('http://localhost:3030/bugs', newBugData)
+        .then(response => response.data)
+        .then(newBug => console.log(newBug))

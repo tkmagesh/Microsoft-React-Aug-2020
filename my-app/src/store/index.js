@@ -20,12 +20,21 @@ function loggerMiddleware(store){
     }
 }
 
+const asyncMiddleware = store => next => action => {
+    if (typeof action === 'function'){
+        return action(store.dispatch);
+    }
+    return next(action);
+}
+
 const rootReducer = combineReducers({
     spinnerState : spinnerReducer,
     bugsState : bugsReducer
 });
 
-const appStore = createStore(rootReducer, applyMiddleware(loggerMiddleware));
+const appStore = createStore(
+        rootReducer
+    , applyMiddleware(loggerMiddleware, asyncMiddleware));
 
 export default appStore;
 

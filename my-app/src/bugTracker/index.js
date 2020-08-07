@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
+import axios from 'axios';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,16 +11,21 @@ import BugEdit from './views/bugEdit';
 import BugList from './views/bugList';
 import './index.css';
 
-const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed, sortBug }) => (
-    <Fragment>
-        <h3>Bug Tracker</h3>
-        <hr />
-        <BugStats bugs={bugs} />
-        <BugSort sortBug={sortBug} />
-        <BugEdit addNew={addNew} />
-        <BugList {...{ bugs, toggle, remove, removeClosed }} />
-    </Fragment>
-);
+const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed, sortBug, load }) => {
+    useEffect(() => {
+        load();
+    }, []);
+    return (
+        <Fragment>
+            <h3>Bug Tracker</h3>
+            <hr />
+            <BugStats bugs={bugs} />
+            <BugSort sortBug={sortBug} />
+            <BugEdit addNew={addNew} />
+            <BugList {...{ bugs, toggle, remove, removeClosed }} />
+        </Fragment>
+    );
+}
 
 function getDescComparer(comparer){
     return (p1, p2) => comparer(p1, p2) * -1;
