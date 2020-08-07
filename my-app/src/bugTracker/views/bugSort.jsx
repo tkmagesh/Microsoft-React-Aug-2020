@@ -2,7 +2,7 @@ import React from 'react';
 
 const BugSort = ({sortBug}) => {
     const [sortAttr, setSortAttr] = React.useState('');
-    const [isDesc, setIsDesc ] = React.useState('false');
+    const [isDesc, setIsDesc ] = React.useState(false);
 
     const sortAttrChange = (e) => {
         const attrName = e.target.value;
@@ -15,6 +15,7 @@ const BugSort = ({sortBug}) => {
         sortBug(sortAttr, isDescOrder);
     }
     return (
+       
         <section className="sort">
             <label htmlFor="">Order By : </label>
             <select onChange={sortAttrChange}>

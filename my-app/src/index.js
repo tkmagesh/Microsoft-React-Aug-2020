@@ -11,6 +11,10 @@ import Spinner from './spinner';
 ReactDOM.render(
   <Provider store={appStore}>
     <div>
+      <div>
+        <label>Apply Filter</label>
+        <input type="checkbox" />
+      </div>
       <h1>My App</h1>
       <hr/>
       <Spinner/>
