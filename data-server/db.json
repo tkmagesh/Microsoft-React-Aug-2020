@@ -21,7 +21,7 @@
     {
       "id": 4,
       "name": "Data integrity checks failed",
-      "isClosed": false,
+      "isClosed": true,
       "createdAt": "2020-08-07T07:07:30.902Z"
     },
     {
