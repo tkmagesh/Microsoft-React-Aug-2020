@@ -1,9 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 import bugsReducer from '../bugTracker/reducers/bugsReducer';
 import spinnerReducer from '../spinner/reducers/spinnerReducer';
 
-function loggerMiddleware(store){
+/* function loggerMiddleware(store){
     return function(next){
         return function(action){
             console.group(action.type);
@@ -18,14 +20,16 @@ function loggerMiddleware(store){
             console.groupEnd();
         }
     }
-}
+} */
 
+/* 
 const asyncMiddleware = ({dispatch, getState}) => next => action => {
     if (typeof action === 'function'){
         return action(dispatch, getState);
     }
     return next(action);
-}
+} 
+*/
 
 const promiseMiddleware = ({dispatch}) => next => async action => {
     if (action instanceof Promise){
@@ -42,7 +46,7 @@ const rootReducer = combineReducers({
 
 const appStore = createStore(
         rootReducer
-    , applyMiddleware(loggerMiddleware, asyncMiddleware, promiseMiddleware));
+    , applyMiddleware(logger, thunk, promiseMiddleware));
 
 export default appStore;
 

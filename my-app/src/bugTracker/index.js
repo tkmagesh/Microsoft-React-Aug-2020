@@ -1,6 +1,4 @@
 import React, { Fragment, useEffect } from 'react'
-import axios from 'axios';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import bugActionCreators from './actions';
@@ -14,7 +12,7 @@ import './index.css';
 const BugTracker = ({ bugs, addNew, toggle, remove, removeClosed, sortBug, load }) => {
     useEffect(() => {
         load();
-    }, []);
+    }, [load]);
     return (
         <Fragment>
             <h3>Bug Tracker</h3>
@@ -44,7 +42,7 @@ function getComparerFor(attrName, isDesc){
 }
 
 function mapStateToProps(storeState){
-    const { spinnerState, bugsState } = storeState;
+    const { bugsState } = storeState;
     //const bugs = bugsState.bugs.filter(bug => bug.id % 2 === spinnerState % 2 );
     const { bugs, sortAttr, isDesc } = bugsState;
     const bugsList = [...bugs];
