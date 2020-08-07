@@ -27,6 +27,14 @@ const asyncMiddleware = ({dispatch, getState}) => next => action => {
     return next(action);
 }
 
+const promiseMiddleware = ({dispatch}) => next => async action => {
+    if (action instanceof Promise){
+        const actionObj = await action;
+        return next(actionObj);
+    }
+    return next(action);
+}
+
 const rootReducer = combineReducers({
     spinnerState : spinnerReducer,
     bugsState : bugsReducer
@@ -34,7 +42,7 @@ const rootReducer = combineReducers({
 
 const appStore = createStore(
         rootReducer
-    , applyMiddleware(loggerMiddleware, asyncMiddleware));
+    , applyMiddleware(loggerMiddleware, asyncMiddleware, promiseMiddleware));
 
 export default appStore;
 

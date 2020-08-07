@@ -1,5 +1,24 @@
 {
-  "bugs": [],
+  "bugs": [
+    {
+      "id": 1,
+      "name": "Server communication failure",
+      "isClosed": false,
+      "createdAt": "2020-08-07T07:01:05.216Z"
+    },
+    {
+      "id": 2,
+      "name": "Application not responding",
+      "isClosed": false,
+      "createdAt": "2020-08-07T07:01:11.419Z"
+    },
+    {
+      "id": 3,
+      "name": "User actions not recognized",
+      "isClosed": false,
+      "createdAt": "2020-08-07T07:01:20.236Z"
+    }
+  ],
   "projects": [
     {
       "id": 1,
