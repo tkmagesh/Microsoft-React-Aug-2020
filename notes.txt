@@ -172,3 +172,18 @@ Homework
     Read about promises
     Display the even id bugs if spinner value is even / odd id bugs if the spinner value is odd
     
+
+json-server
+
+{
+    "products" : [
+
+    ],
+    "customers" : [
+
+    ]
+}
+
+=> 
+    http://localhost:3000/products
+    http://localhost:3000/customers
